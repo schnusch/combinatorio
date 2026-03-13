@@ -1,0 +1,30 @@
+on:
+  push:
+  pull_request:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/setup-node@v4
+    - uses: actions/checkout@v4
+    - run: npm install --include=dev
+    - run: npm run build
+    - uses: actions/upload-artifact@v4
+      with:
+        name: combinatorio
+        path: dist/
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: denoland/setup-deno@v2
+    - uses: actions/checkout@v4
+    - run: deno test -- *_test.[jt]s
+
+  prettier:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/setup-node@v4
+    - uses: actions/checkout@v4
+    - run: npx prettier --write .
+    - run: git diff-index --patch --color --exit-code HEAD

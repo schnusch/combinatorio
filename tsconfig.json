@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "target": "es2019",
+    "allowImportingTsExtensions": true,
+    "declaration": true
+  },
+  "include": ["main.ts"]
+}
